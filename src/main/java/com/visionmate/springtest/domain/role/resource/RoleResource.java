@@ -1,8 +1,8 @@
-package com.visionmate.springtest.resource;
+package com.visionmate.springtest.domain.role.resource;
 
 import com.visionmate.springtest.api.RoleDTO;
-import com.visionmate.springtest.entity.RoleEntity;
-import com.visionmate.springtest.repository.RoleRepository;
+import com.visionmate.springtest.domain.role.entity.RoleEntity;
+import com.visionmate.springtest.domain.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/v1/vis-test/roles")
 public class RoleResource {

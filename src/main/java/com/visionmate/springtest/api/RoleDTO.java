@@ -1,6 +1,6 @@
 package com.visionmate.springtest.api;
 
-import com.visionmate.springtest.entity.RoleEntity;
+import com.visionmate.springtest.domain.role.entity.RoleEntity;
 
 import java.util.Arrays;
 import java.util.List;

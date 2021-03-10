@@ -1,4 +1,4 @@
-package com.visionmate.springtest;
+package com.visionmate.springtest.jwt;
 
 import com.visionmate.springtest.service.UserDetailsImpl;
 import io.jsonwebtoken.*;

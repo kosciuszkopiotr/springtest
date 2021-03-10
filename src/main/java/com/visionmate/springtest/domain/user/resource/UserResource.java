@@ -1,11 +1,11 @@
-package com.visionmate.springtest.resource;
+package com.visionmate.springtest.domain.user.resource;
 
 import com.visionmate.springtest.api.UserBrowseDTO;
 import com.visionmate.springtest.api.UserDTO;
-import com.visionmate.springtest.entity.RoleEntity;
-import com.visionmate.springtest.entity.UserEntity;
-import com.visionmate.springtest.repository.RoleRepository;
-import com.visionmate.springtest.repository.UserRepository;
+import com.visionmate.springtest.domain.role.entity.RoleEntity;
+import com.visionmate.springtest.domain.user.entity.UserEntity;
+import com.visionmate.springtest.domain.repositories.RoleRepository;
+import com.visionmate.springtest.domain.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/v1/vis-test/users")
 public class UserResource {

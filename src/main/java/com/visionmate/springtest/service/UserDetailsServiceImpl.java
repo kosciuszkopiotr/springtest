@@ -1,7 +1,7 @@
 package com.visionmate.springtest.service;
 
-import com.visionmate.springtest.entity.UserEntity;
-import com.visionmate.springtest.repository.UserRepository;
+import com.visionmate.springtest.domain.user.entity.UserEntity;
+import com.visionmate.springtest.domain.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

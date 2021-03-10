@@ -1,4 +1,4 @@
-package com.visionmate.springtest.entity;
+package com.visionmate.springtest.domain.role.entity;
 
 import com.visionmate.springtest.api.RoleDTO;
 

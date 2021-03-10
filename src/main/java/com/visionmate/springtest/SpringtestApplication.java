@@ -1,6 +1,6 @@
 package com.visionmate.springtest;
 
-import com.visionmate.springtest.repository.UserRepository;
+import com.visionmate.springtest.domain.repositories.UserRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;

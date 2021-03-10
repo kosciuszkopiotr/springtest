@@ -1,6 +1,7 @@
-package com.visionmate.springtest.entity;
+package com.visionmate.springtest.domain.user.entity;
 
 import com.visionmate.springtest.api.UserDTO;
+import com.visionmate.springtest.domain.role.entity.RoleEntity;
 
 import javax.persistence.*;
 

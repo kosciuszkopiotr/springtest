@@ -1,6 +1,6 @@
 package com.visionmate.springtest.api;
 
-import com.visionmate.springtest.entity.UserEntity;
+import com.visionmate.springtest.domain.user.entity.UserEntity;
 
 public class UserDTO {
 
