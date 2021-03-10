@@ -2,6 +2,7 @@ package com.visionmate.springtest.domain.user.entity;
 
 import com.visionmate.springtest.api.UserDTO;
 import com.visionmate.springtest.domain.role.entity.RoleEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 
@@ -27,7 +28,7 @@ public class UserEntity {
 
     public UserEntity(UserDTO userDTO, RoleEntity roleEntity) {
         this.username = userDTO.getUsername();
-        this.password = userDTO.getPassword();
+        this.password = new BCryptPasswordEncoder().encode(userDTO.getPassword());
         this.role = roleEntity;
     }
 

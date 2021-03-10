@@ -1,8 +1,8 @@
 package com.visionmate.springtest.domain.role.resource;
 
 import com.visionmate.springtest.api.RoleDTO;
-import com.visionmate.springtest.domain.role.entity.RoleEntity;
 import com.visionmate.springtest.domain.repositories.RoleRepository;
+import com.visionmate.springtest.domain.role.entity.RoleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
