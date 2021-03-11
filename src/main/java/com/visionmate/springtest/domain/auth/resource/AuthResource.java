@@ -1,10 +1,10 @@
 package com.visionmate.springtest.domain.auth.resource;
 
-import com.visionmate.springtest.jwt.JwtUtils;
 import com.visionmate.springtest.api.LoginDataDTO;
 import com.visionmate.springtest.api.TokenDataDTO;
 import com.visionmate.springtest.domain.repositories.RoleRepository;
 import com.visionmate.springtest.domain.repositories.UserRepository;
+import com.visionmate.springtest.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,7 +12,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/vis-test/login")

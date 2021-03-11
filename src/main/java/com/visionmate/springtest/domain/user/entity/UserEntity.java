@@ -1,7 +1,7 @@
 package com.visionmate.springtest.domain.user.entity;
 
-import com.visionmate.springtest.api.UserDTO;
 import com.visionmate.springtest.domain.role.entity.RoleEntity;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
@@ -14,22 +14,24 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true, nullable = false)
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role", referencedColumnName = "id")
+    @JoinColumn(name = "role", referencedColumnName = "id", nullable = false)
     private RoleEntity role;
 
     public UserEntity() {}
 
-    public UserEntity(UserDTO userDTO, RoleEntity roleEntity) {
-        this.username = userDTO.getUsername();
-        this.password = new BCryptPasswordEncoder().encode(userDTO.getPassword());
-        this.role = roleEntity;
+    public UserEntity (String username, String password) {
+        if (Strings.isBlank(username) || Strings.isBlank(password)) {
+            throw new IllegalArgumentException("Username/password cannot be empty");
+        }
+        this.username = username;
+        this.password = new BCryptPasswordEncoder().encode(password);
     }
 
     public int getId() {
@@ -48,15 +50,24 @@ public class UserEntity {
         return role;
     }
 
-    public void setUsername(String username) {
+    public UserEntity setId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    public UserEntity setUsername(String username) {
         this.username = username;
+        return this;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public UserEntity setPassword(String password) {
+        this.password = new BCryptPasswordEncoder().encode(password);
+        return this;
     }
 
-    public void setRole(RoleEntity role) {
+    public UserEntity setRole(RoleEntity role) {
         this.role = role;
+        return this;
     }
+
 }

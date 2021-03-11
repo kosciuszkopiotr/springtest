@@ -6,25 +6,30 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
 
+    private static final String SPRING_ROLE_PREFIX = "ROLE_";
+
     private String username;
     private String password;
-    private GrantedAuthority grantedAuthority;
+    private List<GrantedAuthority> grantedAuthorities;
 
     public UserDetailsImpl() {}
 
     public UserDetailsImpl(UserEntity userEntity) {
         this.username = userEntity.getUsername();
         this.password = userEntity.getPassword();
-        this.grantedAuthority = new SimpleGrantedAuthority(userEntity.getRole().getName());
+        this.grantedAuthorities = userEntity.getRole().getPermissions().stream()
+                .map(permission -> new SimpleGrantedAuthority(SPRING_ROLE_PREFIX + permission))
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(grantedAuthority);
+        return grantedAuthorities;
     }
 
     @Override

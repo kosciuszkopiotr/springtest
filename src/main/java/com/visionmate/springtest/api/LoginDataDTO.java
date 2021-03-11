@@ -2,8 +2,8 @@ package com.visionmate.springtest.api;
 
 public class LoginDataDTO {
 
-    public String username;
-    public String password;
+    private String username;
+    private String password;
 
     public LoginDataDTO() {}
 

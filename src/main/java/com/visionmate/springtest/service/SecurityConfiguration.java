@@ -1,8 +1,9 @@
 package com.visionmate.springtest.service;
 
 import com.visionmate.springtest.jwt.AccessDeniedCustomHandler;
-import com.visionmate.springtest.jwt.AuthEntryPointJwt;
 import com.visionmate.springtest.jwt.AuthTokenFilter;
+import com.visionmate.springtest.jwt.CustomExceptionHandlerFilter;
+import com.visionmate.springtest.jwt.JwtAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +13,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Autowired
-    private AuthEntryPointJwt unauthorizedHandler;
+    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Autowired
     private AccessDeniedCustomHandler accessDeniedHandler;
@@ -49,16 +49,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler).and()
                 .authorizeRequests()
                 .antMatchers("/v1/vis-test/login").permitAll()
-                .antMatchers("/v1/vis-test/roles/**").hasAuthority("ADMIN")
-                .antMatchers("/v1/vis-test/roles").hasAuthority("ADMIN")
-                .antMatchers("/v1/vis-test/users/**").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/v1/vis-test/users").hasAnyAuthority("ADMIN", "USER")
                 .anyRequest().authenticated().and()
-                .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(exceptionHandlerFilter(), CorsFilter.class);
     }
 
     @Bean
@@ -77,6 +74,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter();
+    }
+
+    @Bean
+    public CustomExceptionHandlerFilter exceptionHandlerFilter() {
+        return new CustomExceptionHandlerFilter();
     }
 
     @Bean
